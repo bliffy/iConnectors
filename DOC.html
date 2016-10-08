@@ -1,0 +1,162 @@
+<html>
+<head>
+<title>iConnectors</title>
+</head>
+<body>
+
+<style>
+table, tr, td {border:1px solid gray;}
+</style>
+
+<span>Copyright (C) 2015, Michael E. Jolley</span><br>
+<span>This software is released under the terms of The MIT License.</span>
+<br><br>
+<p>NOTE: All content exists within the namespace BFNET.</p>
+<br>
+
+<h3>Global TCP Connector Init/Cleanup</h3>
+<table>
+<tr>
+ <th>Return Type</th>
+ <th>Definition</th>
+ <th>Description</th>
+ <th>Returns</th>
+</tr>
+<tr>
+ <td>int</td>
+ <td>connector_tcp_init (void)</td>
+ <td>Initialize system-specific framework for tcp sockets. (Only needed for Windows.)</td>
+ <td>-1=failed<br>0=ok</td>
+</tr>
+<tr>
+ <td>void</td>
+ <td>connector_tcp_cleanup (void)</td>
+ <td>Release aforementioned system-specific framework.</td>
+ <td>n/a</td>
+</tr>
+</table>
+
+<br>
+
+<h3>TCPConnection</h3>
+<table>
+<tr>
+ <th>Return Type</th>
+ <th>Definition</th>
+ <th>Description</th>
+ <th>Returns</th>
+</tr>
+<tr>
+ <td>n/a</td>
+ <td>TCPConnection::TCPConnection (void)</td>
+ <td>construct empty client connection</td>
+ <td>n/a</td>
+</tr>
+<tr>
+ <td>n/a</td>
+ <td>TCPConnection::TCPConnection (const TCPConnection&amp; cr)</td>
+ <td>Construct reference to the actual connection in 'cr'. WARNING: Terminating this connection will also terminate the original.</td>
+ <td>n/a</td>
+</tr>
+<tr>
+ <td>n/a</td>
+ <td>TCPConnection::~TCPConnection (void)</td>
+ <td>destructor (does not automatically terminate)</td>
+ <td>n/a</td>
+</tr>
+<tr>
+ <td>TCPConnection&amp;</td>
+ <td>TCPConnection::operator= (const TCPConnection&amp; cr)</td>
+ <td>Construct reference to the actual connection in 'cr'. WARNING: Terminating this connection will also terminate the original.</td>
+ <td>reference to left operand</td>
+</tr>
+<tr>
+ <td>int</td>
+ <td>TCPConnection::connect (const tcpUri_type* host)</td>
+ <td>Conencts to the specified host uri.</td>
+ <td>-1=error<br>0=ok</td>
+</tr>
+<tr>
+ <td>int</td>
+ <td>TCPConnection::send (const char* bytes,int length)</td>
+ <td>Attempt to send 'length' bytes.</td>
+ <td>-1=error<br>(&gt;=0)=bytes-sent</td>
+</tr>
+<tr>
+ <td>int</td>
+ <td>TCPConnection::recv (char* bytes,int length)</td>
+ <td>Attempt to receive 'length' bytes.</td>
+ <td>-1=error<br>(&gt;=0)=bytes received</td>
+</tr>
+<tr>
+ <td>void</td>
+ <td>TCPConnection::terminate (void)</td>
+ <td>Terminate the connection.</td>
+ <td>n/a</td>
+</tr>
+</table>
+
+<br>
+
+<h3>TCPProvider</h3>
+<table>
+<tr>
+ <th>Return Type</th>
+ <th>Definition</th>
+ <th>Description</th>
+ <th>Returns</th>
+</tr>
+ <td>n/a</td>
+ <td>TCPProvider::TCPProvider (void)</td>
+ <td>Construct empty TCP server.</td>
+ <td>n/a</td>
+</tr>
+<tr>
+ <td>n/a</td>
+ <td>TCPProvider::TCPProvider (TCPProvider&amp; pr)</td>
+ <td>Construct reference to the actual connection in 'pr'. WARNING: Terminating this connection will also terminate the original.</td>
+ <td>n/a</td>
+</tr>
+<tr>
+ <td>n/a</td>
+ <td>TCPProvider::~TCPProvider (void)</td>
+ <td>destructor (does not automatically terminate)</td>
+ <td>n/a</td>
+</tr>
+<tr>
+ <td>void</td>
+ <td>TCPProvider::terminate (void)</td>
+ <td>Terminate the connection.</td>
+ <td>n/a</td>
+</tr>
+<tr>
+ <td>TCPProvider&amp;</td>
+ <td>TCPProvider::operator= (const TCPProvider&amp; pr)</td>
+ <td>Construct reference to the actual connection in 'cp'. WARNING: Terminating this connection will also terminate the original.</td>
+ <td>reference to left operand</td>
+</tr>
+<tr>
+ <td>void</td>
+ <td>TCPProvider::set_max_pending (int m)</td>
+ <td>Sets the maximum number of pending connections to keep in the accept-queue. This should be set before binding.</td>
+ <td>n/a</td>
+</tr>
+<tr>
+ <td>int</td>
+ <td>TCPProvider::bind (const tcpUri_type* host)</td>
+ <td>Bind a TCP listening port to the local address specified by the uri.</td>
+ <td>0=ok<br>-1=address resolution error<br>-3=binding error<br>-4=listen error</td>
+</tr>
+<tr>
+ <td>int</td>
+ <td>TCPProvider::accept (TCPConnection* connection)</td>
+ <td>Accept into a 'TCPConnection' from the bound uri.</td>
+ <td>-1=failed<br>0=ok</td>
+</tr>
+</table>
+<br>
+<br>
+<br>
+</body>
+</html>
+
